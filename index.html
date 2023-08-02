@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Natasa Mravunac" />
+    <title>Web chat app</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://cdn.scaledrone.com/scaledrone.min.js"
+      type="text/javascript"
+    ></script>
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <div class="flex-container">
+        <div class="tool"></div>
+        <div class="members">
+          <img
+            src="group-chat-icon-18.jpg"
+            alt="users"
+            width="35px"
+            height="35px"
+          />
+          Chat members
+        </div>
+        <div class="messages">
+          <form class="input" onsubmit="return false;">
+            <input
+              id="message-input"
+              type="text"
+              placeholder="Type a massage..."
+              size="70px"
+            />
+            <input id="message-button" type="submit" value="Send" />
+            <!-- <button id="message-button" onclick="submit()">Send</button>-->
+          </form>
+        </div>
+      </div>
+    </main>
+    <footer>
+      <div><small>&copy 2023</small></div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
