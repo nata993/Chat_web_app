@@ -16,27 +16,25 @@
     <main>
       <div class="flex-container">
         <div class="tool"></div>
-        <div class="members">
-          <img
-            src="group-chat-icon-18.jpg"
-            alt="users"
-            width="35px"
-            height="35px"
-          />
-          Chat members
+        <img
+        src="group-chat-icon-18.jpg"
+        alt="users"
+        width="35px"
+        height="35px"
+        />
+        <div class="members-count">
         </div>
-        <div class="messages">
-          <form class="input" onsubmit="return false;">
+        <div class="members-list">
+        </div>
+        <div class="messages"></div>
+          <form class="message-form" onsubmit="return false;">
             <input
-              id="message-input"
+              class="message-form__input"
               type="text"
               placeholder="Type a massage..."
-              size="70px"
             />
-            <input id="message-button" type="submit" value="Send" />
-            <!-- <button id="message-button" onclick="submit()">Send</button>-->
-          </form>
-        </div>
+            <input class="message-form__button" value="Send" type="submit"/>
+          </form>    
       </div>
     </main>
     <footer>

@@ -6,7 +6,9 @@ const drone = new ScaleDrone(channelID, {
     color: getRandomColor(),
   },
 });
+
 let members = [];
+
 drone.on("open", (error) => {
   if (error) {
     return console.error(error);
@@ -14,39 +16,47 @@ drone.on("open", (error) => {
   console.log("Successfully connected to Scaledrone");
 
   const room = drone.subscribe("observable-room");
+  
   room.on("open", (error) => {
     if (error) {
       return console.error(error);
     }
     console.log("Successfully joined room");
   });
+
   room.on("members", (m) => {
     members = m;
     updateMembersDOM();
   });
+
   room.on("member_join", (member) => {
     members.push(member);
     updateMembersDOM();
   });
+
   room.on("member_leave", ({ id }) => {
     const index = members.findIndex((member) => member.id === id);
     members.splice(index, 1);
     updateMembersDOM();
   });
+
   room.on("data", (text, member) => {
     if (member) {
       addMessageToListDOM(text, member);
     } else {
     }
   });
+
 });
 
 drone.on("close", (event) => {
   console.log("Connection was closed", event);
 });
+
 drone.on("error", (error) => {
   console.error(error);
 });
+
 function getRandomName() {
   const nouns = [
     "waterfall",
@@ -121,23 +131,23 @@ function getRandomColor() {
 }
 
 // DOM functions
-
 const DOM = {
-  members: document.querySelector(".members"),
+  membersCount: document.querySelector('.members-count'),
+  membersList: document.querySelector(".members-list"),
   messages: document.querySelector(".messages"),
-  input: document.querySelector(".input"),
-  messageInput: document.querySelector("#message-input"),
-  buttonInput: document.querySelector("#message-button"),
+  form: document.querySelector(".message-form"),
+  input: document.querySelector(".message-form__input"),
 };
 
-DOM.buttonInput.addEventListener("submit", sendMessage);
+DOM.form.addEventListener('submit', sendMessage);
+
 function sendMessage() {
   console.log("Starting sendMessage()");
-  const value = DOM.messageInput.value;
+  const value = DOM.input.value;
   if (value === "") {
     return;
   }
-  DOM.messageInput.value = "";
+  DOM.input.value = "";
   drone.publish({
     room: "observable-room",
     message: value,
@@ -153,10 +163,10 @@ function createMemberElement(member) {
   return el;
 }
 function updateMembersDOM() {
-  //DOM.membersCount.innerText = `${members.length} users in room:`;
-  //DOM.members.innerHTML = "";
+  DOM.membersCount.innerHTML = `${members.length} users in room: <br>`;
+  DOM.membersList.innerHTML = '';
   members.forEach((member) =>
-    DOM.members.appendChild(createMemberElement(member))
+    DOM.membersList.appendChild(createMemberElement(member))
   );
 }
 
@@ -176,9 +186,4 @@ function addMessageToListDOM(text, member) {
     el.scrollTop = el.scrollHeight - el.clientHeight;
   }
 }
-/*
-function submit() {
-  console.log("Starting submit() method!");
-  text = DOM.messageInput.innerHTML;
-}
-*/
+
