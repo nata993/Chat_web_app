@@ -1,5 +1,5 @@
 const channelID = "5Zua3dN27uQpUHLP";
-
+//create object drone
 const drone = new ScaleDrone(channelID, {
   data: {
     name: getRandomName(),
@@ -7,6 +7,7 @@ const drone = new ScaleDrone(channelID, {
   },
 });
 let members = [];
+//connecting to scaledrone
 drone.on("open", (error) => {
   if (error) {
     return console.error(error);
@@ -14,12 +15,14 @@ drone.on("open", (error) => {
   console.log("Successfully connected to Scaledrone");
 
   const room = drone.subscribe("observable-room");
+
   room.on("open", (error) => {
     if (error) {
       return console.error(error);
     }
     console.log("Successfully joined room");
   });
+
   room.on("members", (m) => {
     members = m;
     updateMembersDOM();
@@ -123,21 +126,22 @@ function getRandomColor() {
 // DOM functions
 
 const DOM = {
-  members: document.querySelector(".members"),
+  membersCount: document.querySelector(".members-count"),
+  membersList: document.querySelector(".members-list"),
   messages: document.querySelector(".messages"),
-  input: document.querySelector(".input"),
-  messageInput: document.querySelector("#message-input"),
-  buttonInput: document.querySelector("#message-button"),
+  form: document.querySelector(".message-form"),
+  input: document.querySelector(".message-form__input"),
 };
 
-DOM.buttonInput.addEventListener("submit", sendMessage);
+DOM.form.addEventListener("submit", sendMessage);
+
 function sendMessage() {
   console.log("Starting sendMessage()");
-  const value = DOM.messageInput.value;
+  const value = DOM.input.value;
   if (value === "") {
     return;
   }
-  DOM.messageInput.value = "";
+  DOM.input.value = "";
   drone.publish({
     room: "observable-room",
     message: value,
@@ -153,13 +157,13 @@ function createMemberElement(member) {
   return el;
 }
 function updateMembersDOM() {
-  //DOM.membersCount.innerText = `${members.length} users in room:`;
-  //DOM.members.innerHTML = "";
+  DOM.membersCount.innerHTML = `chat users:${members.length}`;
+  DOM.membersList.innerHTML = "";
   members.forEach((member) =>
-    DOM.members.appendChild(createMemberElement(member))
+    DOM.membersList.appendChild(createMemberElement(member))
   );
 }
-
+//document.body.insertBefore(kreiraniElement, referentniElement.nextSibling);
 function createMessageElement(text, member) {
   const el = document.createElement("div");
   el.appendChild(createMemberElement(member));
@@ -182,3 +186,6 @@ function submit() {
   text = DOM.messageInput.innerHTML;
 }
 */
+//var f = document.querySelector(".members-count");
+//var z = document.querySelector(".members-list");
+//document.body.insertBefore(z, f.nextSibling);

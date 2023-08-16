@@ -12,31 +12,32 @@
     ></script>
   </head>
   <body>
-    <header></header>
+    <header>
+      <h3 id="title">Chat room</h3>
+    </header>
     <main>
       <div class="flex-container">
-        <div class="tool"></div>
-        <div class="members">
+        <div class="tool">
           <img
             src="group-chat-icon-18.jpg"
             alt="users"
             width="35px"
             height="35px"
           />
-          Chat members
         </div>
-        <div class="messages">
-          <form class="input" onsubmit="return false;">
-            <input
-              id="message-input"
-              type="text"
-              placeholder="Type a massage..."
-              size="70px"
-            />
-            <input id="message-button" type="submit" value="Send" />
-            <!-- <button id="message-button" onclick="submit()">Send</button>-->
-          </form>
-        </div>
+        <div class="members-count"><br /></div>
+        <div class="members-list"></div>
+        <div class="messages"></div>
+        <form class="message-form" onsubmit="return false;">
+          <input
+            class="message-form__input"
+            type="text"
+            placeholder="Type a massage..."
+            size="70px"
+          />
+          <input class="message-form__button" type="submit" value="Send" />
+          <!-- <button id="message-button" onclick="submit()">Send</button>-->
+        </form>
       </div>
     </main>
     <footer>
